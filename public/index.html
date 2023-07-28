@@ -1,48 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chatbot con IA por Voz</title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>React App</title>
 </head>
+
 <body>
-  <h1>Chatbot con IA por Voz</h1>
-  <button id="startButton">Hablar</button>
-  <div id="chatArea"></div>
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
-
-    const startButton = document.getElementById('startButton');
-    const chatArea = document.getElementById('chatArea');
-
-    const recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = 'es-ES';
-
-    startButton.addEventListener('click', () => {
-      recognition.start();
-      startButton.disabled = true;
-    });
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[event.results.length - 1][0].transcript;
-      socket.emit('voiceMessage', { message: transcript });
-
-      const userMessage = document.createElement('p');
-      userMessage.textContent = 'Tú: ' + transcript;
-      chatArea.appendChild(userMessage);
-    };
-
-    socket.on('botResponse', (data) => {
-      const botMessage = document.createElement('p');
-      botMessage.textContent = 'Bot: ' + data.response;
-      chatArea.appendChild(botMessage);
-      recognition.stop();
-      startButton.disabled = false;
-    });
-  </script>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
 </body>
+
 </html>
